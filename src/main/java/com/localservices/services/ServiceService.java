@@ -1,6 +1,6 @@
 package com.localservices.services;
 
-import com.localservices.models.Service;
+import com.localservices.models.LocalService;
 import com.localservices.repositories.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,33 +14,33 @@ public class ServiceService {
     @Autowired
     private ServiceRepository serviceRepository;
 
-    public Service createService(Service service) {
+    public LocalService createService(LocalService service) {
         service.setCreatedAt(LocalDateTime.now());
         service.setUpdatedAt(LocalDateTime.now());
         service.setAvailable(true);
         return serviceRepository.save(service);
     }
 
-    public Optional<Service> getServiceById(String id) {
+    public Optional<LocalService> getServiceById(String id) {
         return serviceRepository.findById(id);
     }
 
-    public List<Service> getServicesByProviderId(String providerId) {
+    public List<LocalService> getServicesByProviderId(String providerId) {
         return serviceRepository.findByProviderId(providerId);
     }
 
-    public List<Service> getServicesByCategory(String category) {
+    public List<LocalService> getServicesByCategory(String category) {
         return serviceRepository.findByCategory(category);
     }
 
-    public List<Service> getServicesByLocation(String location) {
+    public List<LocalService> getServicesByLocation(String location) {
         return serviceRepository.findByLocation(location);
     }
 
-    public Service updateService(String id, Service serviceDetails) {
-        Optional<Service> service = serviceRepository.findById(id);
+    public LocalService updateService(String id, LocalService serviceDetails) {
+        Optional<LocalService> service = serviceRepository.findById(id);
         if (service.isPresent()) {
-            Service existingService = service.get();
+            LocalService existingService = service.get();
             existingService.setName(serviceDetails.getName());
             existingService.setDescription(serviceDetails.getDescription());
             existingService.setPrice(serviceDetails.getPrice());
@@ -51,7 +51,7 @@ public class ServiceService {
         return null;
     }
 
-    public List<Service> getAllServices() {
+    public List<LocalService> getAllServices() {
         return serviceRepository.findAll();
     }
 
